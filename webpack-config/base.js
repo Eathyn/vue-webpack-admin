@@ -8,6 +8,9 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const threadLoader = require('thread-loader')
+const AutoImport = require('unplugin-auto-import/webpack')
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
 const isProd = process.env.NODE_ENV === 'production'
 const outputFilename = isProd ? 'js/[name].[contenthash:8].js' : 'js/[name].js'
@@ -143,6 +146,12 @@ module.exports = {
           },
         },
       },
+    }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
     }),
   ],
 
