@@ -40,7 +40,7 @@ module.exports = {
   },
 
   module: {
-    noParse: /^(vue|vue-router|pinia)$/,
+    noParse: /^(vue|vue-router|pinia|element-plus)$/,
     rules: [
       {
         test: /\.vue$/,
