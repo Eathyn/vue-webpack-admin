@@ -1,7 +1,7 @@
 {
-  "name": "vue-webpack-boilerplate",
+  "name": "vue-webpack-admin",
   "version": "1.0.0",
-  "description": "A boilerplate by Vue3 and Webpack",
+  "description": "An administration project powered by vue and webpack",
   "main": "main.ts",
   "scripts": {
     "dev": "webpack serve --config ./webpack-config/dev.js",
@@ -23,7 +23,7 @@
     "Vue3",
     "Webpack",
     "TypeScript",
-    "Boilerplate"
+    "Admin"
   ],
   "author": "Eathyn",
   "license": "MIT",
