@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { useLoginStore } from '@/store/user'
+import { storeToRefs } from 'pinia'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -47,6 +49,27 @@ const router = createRouter({
       behavior: 'smooth',
     }
   },
+})
+
+const whiteList = ['/login']
+
+router.beforeEach((to, from, next) => {
+  const loginStore = useLoginStore()
+  const { token } = storeToRefs(loginStore)
+
+  if (token.value) {
+    if (to.path === '/login') {
+      next('/home')
+    } else {
+      next()
+    }
+  } else {
+    if (whiteList.includes(to.path)) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
 })
 
 export default router
