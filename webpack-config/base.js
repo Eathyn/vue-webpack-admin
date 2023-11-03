@@ -39,6 +39,14 @@ module.exports = {
     ignored: /node_modules/,
   },
 
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [__filename],
+    },
+    profile: true,
+  },
+
   module: {
     noParse: /^(vue|vue-router|pinia|element-plus)$/,
     rules: [
