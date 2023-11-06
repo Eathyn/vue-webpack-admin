@@ -4,8 +4,6 @@ const { VueLoaderPlugin } = require('vue-loader')
 const { DefinePlugin } = require('webpack')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
-const ESLintPlugin = require('eslint-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const threadLoader = require('thread-loader')
 const AutoImport = require('unplugin-auto-import/webpack')
@@ -142,10 +140,6 @@ module.exports = {
         },
       ],
     }),
-    new ESLintPlugin({
-      extensions: ['.ts', '.tsx', '.js', '.jsx', '.vue'],
-      threads: true,
-    }),
     new ForkTsCheckerWebpackPlugin({
       typescript: {
         extensions: {
@@ -163,58 +157,4 @@ module.exports = {
       resolvers: [ElementPlusResolver()],
     }),
   ],
-
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        defaultVendors: {
-          name: 'chunk-vendors',
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-          chunks: 'initial',
-        },
-        common: {
-          name: 'chunk-common',
-          minChunks: 2,
-          priority: -20,
-          chunks: 'initial',
-          reuseExistingChunk: true,
-        },
-      },
-    },
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        extractComments: false,
-        terserOptions: {
-          compress: {
-            arrows: false,
-            collapse_vars: false,
-            comparisons: false,
-            computed_props: false,
-            hoist_funs: false,
-            hoist_props: false,
-            hoist_vars: false,
-            inline: false,
-            loops: false,
-            negate_iife: false,
-            properties: false,
-            reduce_funcs: false,
-            reduce_vars: false,
-            switches: false,
-            toplevel: false,
-            typeofs: false,
-            booleans: true,
-            if_return: true,
-            sequences: true,
-            unused: true,
-            conditionals: true,
-            dead_code: true,
-            evaluate: true,
-          },
-        },
-      }),
-    ],
-  },
 }

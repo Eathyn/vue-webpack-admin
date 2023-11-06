@@ -8,6 +8,14 @@ const style = require('./style')
 module.exports = merge(base, style, {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
+  optimization: {
+    minimize: false,
+    concatenateModules: false,
+    removeAvailableModules: false,
+    removeEmptyChunks: false,
+    splitChunks: false,
+    usedExports: false,
+  },
   devServer: {
     proxy: {
       '/api': {
