@@ -53,14 +53,18 @@ const router = createRouter({
 
 const whiteList = ['/login']
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const loginStore = useLoginStore()
-  const { token } = storeToRefs(loginStore)
+  const { token, isUserInfoEmpty } = storeToRefs(loginStore)
+  const { setUserInfo } = loginStore
 
   if (token.value) {
     if (to.path === '/login') {
       next('/home')
     } else {
+      if (isUserInfoEmpty) {
+        await setUserInfo()
+      }
       next()
     }
   } else {
