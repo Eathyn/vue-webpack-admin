@@ -16,8 +16,8 @@ const router = useRouter()
 
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive<LoginForm>({
-  username: '',
-  password: '',
+  username: 'super-admin',
+  password: '123456',
 })
 const rules = reactive<FormRules<LoginForm>>({
   username: [{ required: true, message: '用户名为必填项' }],
