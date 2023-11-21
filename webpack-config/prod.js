@@ -45,17 +45,42 @@ module.exports = merge(base, style, {
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
-        defaultVendors: {
-          name: 'chunk-vendors',
-          test: /[\\/]node_modules[\\/]/,
+        elementPlus: {
+          name: 'chunk-element-plus',
+          test(module) {
+            return (
+              module.resource &&
+              (module.resource.includes(`${path.sep}element-plus`) ||
+                module.resource.includes(`${path.sep}@element-plus`))
+            )
+          },
+          priority: 10,
+        },
+        baseLib: {
+          name: 'chunk-base-lib',
+          test(module) {
+            const path = require('path')
+            return (
+              module.resource &&
+              (module.resource.includes(`${path.sep}@vue`) ||
+                module.resource.includes(`${path.sep}vue-loader`) ||
+                module.resource.includes(`${path.sep}vue-style-loader`) ||
+                module.resource.includes(`${path.sep}vue-template-compiler`) ||
+                module.resource.includes(`${path.sep}vue-router`) ||
+                module.resource.includes(`${path.sep}pinia`) ||
+                module.resource.includes(`${path.sep}axios`) ||
+                module.resource.includes(`${path.sep}lodash-es`) ||
+                module.resource.includes(`${path.sep}core-js-pure`) ||
+                module.resource.includes(`${path.sep}core-js-compact`) ||
+                module.resource.includes(`${path.sep}escape-html`))
+            )
+          },
           priority: -10,
-          chunks: 'initial',
         },
         common: {
           name: 'chunk-common',
           minChunks: 2,
           priority: -20,
-          chunks: 'initial',
           reuseExistingChunk: true,
         },
       },
