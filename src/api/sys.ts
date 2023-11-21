@@ -1,14 +1,17 @@
 import request from '@/utils/request'
+import { LoginResData, UserInfo } from '@/store/user'
 
-export function login(data: any) {
+export const loginURL = '/sys/login'
+
+export function login(data: any): Promise<LoginResData> {
   return request({
-    url: '/sys/login',
+    url: loginURL,
     method: 'POST',
     data,
   })
 }
 
-export function getUserInfo() {
+export async function getUserInfo(): Promise<UserInfo> {
   return request({
     url: '/sys/profile',
   })

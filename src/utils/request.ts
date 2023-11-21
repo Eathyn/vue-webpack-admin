@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
-import { useLoginStore } from '@/store/user'
+import { useLoginStore, useLogoutStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
+import { isTokenTimeout } from '@/utils/auth'
+import { loginURL } from '@/api/sys'
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -9,8 +11,15 @@ const service = axios.create({
 })
 
 service.interceptors.request.use(
-  (config) => {
-    config.headers.icode = 'C3C95CC441403794'
+  async (config) => {
+    if (config.url !== loginURL && isTokenTimeout()) {
+      const logoutStore = useLogoutStore()
+      const { logout } = logoutStore
+      await logout()
+      return Promise.reject(new Error('token timeouts'))
+    }
+
+    config.headers.icode = '0ABA6884D7D02FA9'
     const loginStore = useLoginStore()
     const { token } = storeToRefs(loginStore)
     if (token.value) {

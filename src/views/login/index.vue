@@ -8,6 +8,7 @@ import { useLoginStore } from '@/store/user'
 import { login } from '@/api/sys'
 import { TOKEN } from '@/constant'
 import { setItem } from '@/utils/storage'
+import { setTimeStamp } from '@/utils/auth'
 
 const loginStore = useLoginStore()
 const { setToken } = loginStore
@@ -46,6 +47,7 @@ async function userLogin(userInfo: LoginForm) {
     })
     setToken(token)
     setItem(TOKEN, token)
+    setTimeStamp()
     await router.push('/home')
   } catch (err) {
     console.error(err)

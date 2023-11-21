@@ -1,8 +1,10 @@
-import { defineStore } from 'pinia'
-import { computed, reactive, ref, toRaw } from 'vue'
+import { defineStore, storeToRefs } from 'pinia'
+import { computed, ref } from 'vue'
 import { getUserInfo } from '@/api/sys'
+import { removeAllItems } from '@/utils/storage'
+import { useRouter } from 'vue-router'
 
-interface UserInfo {
+export interface UserInfo {
   id: string
   _id: string
   avatar: string
@@ -18,11 +20,15 @@ interface UserInfo {
   username: string
 }
 
+export interface LoginResData {
+  token: string
+}
+
 export const useLoginStore = defineStore('login', () => {
   const token = ref('')
-  const userInfo = reactive<UserInfo | Record<string, never>>({})
+  const userInfo = ref<UserInfo | null>(null)
   const isUserInfoEmpty = computed(
-    () => JSON.stringify(toRaw(userInfo)) === '{}',
+    () => JSON.stringify(userInfo.value) === '{}',
   )
 
   function setToken(value: string) {
@@ -30,8 +36,7 @@ export const useLoginStore = defineStore('login', () => {
   }
 
   async function setUserInfo() {
-    const res = await getUserInfo()
-    Object.assign(userInfo, res)
+    userInfo.value = await getUserInfo()
   }
 
   return {
@@ -40,5 +45,24 @@ export const useLoginStore = defineStore('login', () => {
     isUserInfoEmpty,
     setToken,
     setUserInfo,
+  }
+})
+
+export const useLogoutStore = defineStore('logout', () => {
+  const router = useRouter()
+
+  async function logout() {
+    const loginStore = useLoginStore()
+    const { token, userInfo } = storeToRefs(loginStore)
+    // clean token
+    token.value = ''
+    removeAllItems()
+    // clean user information
+    userInfo.value = null
+    await router.push({ name: 'Login' })
+  }
+
+  return {
+    logout,
   }
 })

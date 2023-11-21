@@ -1,17 +1,28 @@
 <script setup lang="ts">
-import { useLoginStore } from '@/store/user'
+import { useLoginStore, useLogoutStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
 
 const loginStore = useLoginStore()
 const { userInfo } = storeToRefs(loginStore)
 const { avatar } = userInfo.value
+const logoutStore = useLogoutStore()
+const { logout } = logoutStore
+
+function handleCommand(command: string) {
+  if (command === 'logout') {
+    logout()
+  }
+}
 </script>
 
 <template>
   <div class="nav">
     <div class="item occupy"></div>
     <div class="item">
-      <el-dropdown trigger="click">
+      <el-dropdown
+        trigger="click"
+        @command="handleCommand"
+      >
         <el-avatar
           shape="square"
           :src="avatar"
@@ -19,7 +30,7 @@ const { avatar } = userInfo.value
         <template #dropdown>
           <el-dropdown-item>首页</el-dropdown-item>
           <el-dropdown-item>课程主页</el-dropdown-item>
-          <el-dropdown-item>退出登录</el-dropdown-item>
+          <el-dropdown-item command="logout">退出登录</el-dropdown-item>
         </template>
       </el-dropdown>
     </div>

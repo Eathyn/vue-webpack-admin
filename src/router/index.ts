@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { useLoginStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
+import { getItem } from '@/utils/storage'
+import { TOKEN } from '@/constant'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -55,13 +57,17 @@ const whiteList = ['/login']
 
 router.beforeEach(async (to, from, next) => {
   const loginStore = useLoginStore()
-  const { token, isUserInfoEmpty } = storeToRefs(loginStore)
+  const { isUserInfoEmpty, token } = storeToRefs(loginStore)
   const { setUserInfo } = loginStore
+  const storageToken = getItem(TOKEN)
 
-  if (token.value) {
+  if (storageToken) {
     if (to.path === '/login') {
       next('/home')
     } else {
+      if (token.value === '') {
+        token.value = storageToken
+      }
       if (isUserInfoEmpty) {
         await setUserInfo()
       }
