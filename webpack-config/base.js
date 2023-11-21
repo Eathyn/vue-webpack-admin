@@ -11,7 +11,12 @@ const Components = require('unplugin-vue-components/webpack')
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
 const isProd = process.env.NODE_ENV === 'production'
-const outputFilename = isProd ? 'js/[name].[contenthash:8].js' : 'js/[name].js'
+const filename = isProd
+  ? 'js/[name].[contenthash:8].bundle.js'
+  : 'js/[name].bundle.js'
+const chunkFilename = isProd
+  ? 'js/[name].[contenthash:8].chunk.js'
+  : 'js/[name].chunk.js'
 threadLoader.warmup({}, ['babel-loader'])
 
 module.exports = {
@@ -21,8 +26,8 @@ module.exports = {
 
   output: {
     path: resolve(process.cwd(), 'dist'),
-    filename: outputFilename,
-    chunkFilename: outputFilename,
+    filename,
+    chunkFilename,
     clean: true,
   },
 
