@@ -6,9 +6,6 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const threadLoader = require('thread-loader')
-const AutoImport = require('unplugin-auto-import/webpack')
-const Components = require('unplugin-vue-components/webpack')
-const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
 const isProd = process.env.NODE_ENV === 'production'
 const filename = isProd
@@ -154,12 +151,6 @@ module.exports = {
           },
         },
       },
-    }),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
     }),
   ],
 }
