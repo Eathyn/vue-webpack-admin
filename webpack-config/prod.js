@@ -90,6 +90,7 @@ module.exports = merge(base, style, {
       new TerserPlugin({
         extractComments: false,
         terserOptions: {
+          sourceMap: true,
           compress: {
             arrows: false,
             collapse_vars: false,
