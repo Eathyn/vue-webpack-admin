@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>app main</div>
+  <div>profile</div>
 </template>
 
 <style scoped lang="scss"></style>

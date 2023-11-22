@@ -48,7 +48,7 @@ async function userLogin(userInfo: LoginForm) {
     setToken(token)
     setItem(TOKEN, token)
     setTimeStamp()
-    await router.push('/home')
+    await router.push('/')
   } catch (err) {
     console.error(err)
   }

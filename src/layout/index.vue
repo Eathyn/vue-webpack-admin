@@ -11,9 +11,9 @@
 </template>
 
 <script setup lang="ts">
-import AppMain from '@/views/home/components/AppMain.vue'
-import NavBar from '@/views/home/components/NavBar.vue'
-import Sidebar from '@/views/home/components/Sidebar.vue'
+import AppMain from '@/layout/components/AppMain.vue'
+import NavBar from '@/layout/components/NavBar.vue'
+import Sidebar from '@/layout/components/Sidebar.vue'
 </script>
 
 <style scoped lang="scss">
