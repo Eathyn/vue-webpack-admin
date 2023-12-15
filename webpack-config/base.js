@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
-const { DefinePlugin } = require('webpack')
+const { DefinePlugin, ProvidePlugin } = require('webpack')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
@@ -33,6 +33,9 @@ module.exports = {
       '@': resolve(process.cwd(), 'src'),
     },
     extensions: ['.tsx', '.ts', '.mjs', '.js', '.jsx', '.vue'],
+    fallback: {
+      path: require.resolve('path-browserify'),
+    },
   },
 
   watchOptions: {
@@ -128,6 +131,9 @@ module.exports = {
       __VUE_OPTIONS_API__: 'false',
       __VUE_PROD_DEVTOOLS__: 'false',
       'process.env': JSON.stringify(process.env),
+    }),
+    new ProvidePlugin({
+      process: 'process/browser',
     }),
     new CaseSensitivePathsPlugin(),
     new CopyPlugin({
