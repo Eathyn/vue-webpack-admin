@@ -85,6 +85,7 @@ module.exports = merge(base, style, {
         },
       },
     },
+    usedExports: true,
     minimize: true,
     minimizer: [
       new TerserPlugin({
