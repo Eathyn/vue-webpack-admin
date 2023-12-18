@@ -121,4 +121,7 @@ module.exports = merge(base, style, {
       }),
     ],
   },
+  performance: {
+    hints: 'error',
+  },
 })

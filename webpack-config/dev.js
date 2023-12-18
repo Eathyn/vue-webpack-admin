@@ -16,6 +16,9 @@ module.exports = merge(base, style, {
     splitChunks: false,
     usedExports: false,
   },
+  performance: {
+    hints: 'warning',
+  },
   devServer: {
     proxy: {
       '/api': {
