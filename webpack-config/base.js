@@ -14,6 +14,12 @@ const filename = isProd
 const chunkFilename = isProd
   ? 'js/[name].[contenthash:8].chunk.js'
   : 'js/[name].chunk.js'
+if (process.env.ANALYSE_BUNDLE === 'true') {
+  const BundleAnalyzerPlugin =
+    require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+  plugins.push(new BundleAnalyzerPlugin())
+}
+
 threadLoader.warmup({}, ['babel-loader'])
 
 module.exports = {
