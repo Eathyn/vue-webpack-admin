@@ -4,10 +4,16 @@ loadEnv('development')
 const { merge } = require('webpack-merge')
 const base = require('./base')
 const style = require('./style')
+const { resolve } = require('path')
+
+const filename = 'js/[name].bundle.js'
+const chunkFilename = 'js/[name].chunk.js'
 
 module.exports = merge(base, style, {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
+  entry: resolve(process.cwd(), 'src/main-dev.ts'),
+
   optimization: {
     minimize: false,
     concatenateModules: false,

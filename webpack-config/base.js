@@ -57,8 +57,6 @@ threadLoader.warmup({}, ['babel-loader'])
 module.exports = {
   context: process.cwd(),
 
-  entry: resolve(process.cwd(), 'src/main.ts'),
-
   output: {
     path: resolve(process.cwd(), 'dist'),
     filename,
