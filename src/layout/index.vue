@@ -21,10 +21,6 @@ import Sidebar from '@/layout/components/Sidebar.vue'
   display: flex;
 }
 
-.sidebar-wrap {
-  width: 210px;
-}
-
 .main-wrap {
   flex: 1;
 }

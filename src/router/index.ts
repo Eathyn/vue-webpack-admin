@@ -6,6 +6,7 @@ import { TOKEN } from '@/constant'
 import userRoutes from '@/router/modules/user'
 import roleListRoutes from '@/router/modules/roleList'
 import permissionListRoutes from '@/router/modules/permissionList'
+import articleRoutes from '@/router/modules/article'
 import Layout from '@/layout/index.vue'
 
 const publicRoutes: Array<RouteRecordRaw> = [
@@ -59,7 +60,12 @@ const publicRoutes: Array<RouteRecordRaw> = [
   },
 ]
 
-const privateRoutes = [userRoutes, roleListRoutes, permissionListRoutes]
+const privateRoutes = [
+  userRoutes,
+  roleListRoutes,
+  permissionListRoutes,
+  articleRoutes,
+]
 
 const router = createRouter({
   history: createWebHashHistory(),

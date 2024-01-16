@@ -1,25 +1,53 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { filterRoutes, generateMenus } from '@/utils/route'
+import { useSidebarStore } from '@/store/app'
+import { storeToRefs } from 'pinia'
+import SidebarItem from '@/layout/components/SidebarItem.vue'
+
+const router = useRouter()
+const menuRoutes = computed(() => {
+  const routes = filterRoutes(router.getRoutes())
+  return generateMenus(routes)
+})
+
+const sidebarStore = useSidebarStore()
+const { isOpenSidebar } = storeToRefs(sidebarStore)
+</script>
 
 <template>
   <div class="sidebar">
+    <div class="title">
+      <el-avatar
+        shape="square"
+        src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"
+        :size="44"
+      />
+      <h1
+        v-show="isOpenSidebar"
+        class="header"
+      >
+        Admin
+      </h1>
+    </div>
     <el-scrollbar>
       <el-menu
+        router
         background-color="#304156"
-        text-color="#ffffff"
+        text-color="#bfcbd9"
+        active-text-color="#ffffff"
+        default-active="/profile"
+        unique-opened
+        class="el-menu"
+        :collapse="!isOpenSidebar"
+        :collapse-transition="false"
       >
-        <el-menu-item index="1">个人中心</el-menu-item>
-        <el-menu-item index="2">数据可视化</el-menu-item>
-        <el-sub-menu index="3">
-          <template #title>用户</template>
-          <el-menu-item index="3-1">员工管理</el-menu-item>
-          <el-menu-item index="3-2">角色列表</el-menu-item>
-          <el-menu-item index="3-3">权限列表</el-menu-item>
-        </el-sub-menu>
-        <el-sub-menu index="4">
-          <template #title>文章</template>
-          <el-menu-item index="4-1">文章排名</el-menu-item>
-          <el-menu-item index="4-2">创建文章</el-menu-item>
-        </el-sub-menu>
+        <SidebarItem
+          v-for="item in menuRoutes"
+          :key="item.path"
+          :route="item"
+        />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -27,7 +55,34 @@
 
 <style scoped lang="scss">
 .sidebar {
-  height: 100vh;
+  min-height: 100vh;
   background: #304156;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+
+  :deep(.el-avatar) {
+    --el-avatar-bg-color: none;
+  }
+
+  .header {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    padding-left: 15px;
+  }
+}
+
+.el-menu:not(.el-menu--collapse) {
+  width: 210px;
+}
+
+.el-menu {
+  border-right: none;
 }
 </style>
