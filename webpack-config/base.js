@@ -59,8 +59,6 @@ module.exports = {
 
   output: {
     path: resolve(process.cwd(), 'dist'),
-    filename,
-    chunkFilename,
     clean: true,
   },
 

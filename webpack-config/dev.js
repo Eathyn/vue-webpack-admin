@@ -14,6 +14,11 @@ module.exports = merge(base, style, {
   devtool: 'eval-cheap-module-source-map',
   entry: resolve(process.cwd(), 'src/main-dev.ts'),
 
+  output: {
+    filename,
+    chunkFilename,
+  },
+
   optimization: {
     minimize: false,
     concatenateModules: false,

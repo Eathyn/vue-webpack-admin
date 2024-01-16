@@ -9,12 +9,23 @@ const style = require('./style')
 const TerserPlugin = require('terser-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const path = require('path')
+const { resolve } = require('path')
 
 // const compressFileExt = /\.(js|css|html|svg)$/
+const filename = 'js/[name].[contenthash:8].bundle.js'
+const chunkFilename = 'js/[name].[contenthash:8].chunk.js'
 
 module.exports = merge(base, style, {
   mode: 'production',
   devtool: 'hidden-source-map',
+
+  entry: resolve(process.cwd(), 'src/main-prod.ts'),
+
+  output: {
+    filename,
+    chunkFilename,
+  },
+
   plugins: [
     // new CompressionPlugin({
     //   filename: '[path][base].gz',
