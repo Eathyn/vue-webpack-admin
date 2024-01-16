@@ -133,6 +133,11 @@ module.exports = {
         generator: {
           filename: 'img/[name].[hash:8][ext]',
         },
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024, // 10kb
+          },
+        },
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)$/,
