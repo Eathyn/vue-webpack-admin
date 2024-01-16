@@ -50,12 +50,4 @@ module.exports = merge(base, style, {
   performance: {
     hints: 'warning',
   },
-  devServer: {
-    proxy: {
-      '/api': {
-        target: 'https://api.imooc-admin.lgdsunday.club',
-        changeOrigin: true,
-      },
-    },
-  },
 })
