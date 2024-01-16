@@ -11,7 +11,9 @@ const chunkFilename = 'js/[name].chunk.js'
 
 module.exports = merge(base, style, {
   mode: 'development',
+
   devtool: 'eval-cheap-module-source-map',
+
   entry: resolve(process.cwd(), 'src/main-dev.ts'),
 
   output: {
@@ -44,6 +46,7 @@ module.exports = merge(base, style, {
     splitChunks: false,
     usedExports: false,
   },
+
   performance: {
     hints: 'warning',
   },

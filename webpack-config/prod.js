@@ -17,6 +17,7 @@ const chunkFilename = 'js/[name].[contenthash:8].chunk.js'
 
 module.exports = merge(base, style, {
   mode: 'production',
+
   devtool: 'hidden-source-map',
 
   entry: resolve(process.cwd(), 'src/main-prod.ts'),
@@ -70,6 +71,7 @@ module.exports = merge(base, style, {
       threads: true,
     }),
   ],
+
   optimization: {
     splitChunks: {
       chunks: 'all',
