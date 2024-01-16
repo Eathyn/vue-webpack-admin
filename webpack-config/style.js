@@ -3,12 +3,19 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
 
+const cssLoaderConfig = {
+  loader: 'css-loader',
+  options: {
+    importLoaders: 2,
+  },
+}
+
 const rules = [
   {
     test: /\.css$/i,
     use: [
       isProd ? MiniCssExtractPlugin.loader : 'vue-style-loader',
-      'css-loader',
+      cssLoaderConfig,
       'postcss-loader',
     ],
   },
