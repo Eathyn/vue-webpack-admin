@@ -9,11 +9,12 @@ import { login } from '@/api/sys'
 import { TOKEN } from '@/constant'
 import { setItem } from '@/utils/storage'
 import { setTimeStamp } from '@/utils/auth'
+import { useLangStore } from '@/store/app'
 
 const loginStore = useLoginStore()
 const { setToken } = loginStore
-
 const router = useRouter()
+useLangStore()
 
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive<LoginForm>({
