@@ -136,6 +136,7 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|webp|avif)$/,
         type: 'asset',
+        exclude: resolve(process.cwd(), 'src/icon'),
         generator: {
           filename: 'img/[name].[hash:8][ext]',
         },

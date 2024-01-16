@@ -19,6 +19,23 @@ module.exports = merge(base, style, {
     chunkFilename,
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-sprite-loader',
+            options: {
+              symbolId: 'icon-[name]',
+            },
+          },
+        ],
+        include: resolve(process.cwd(), 'src/icon'),
+      },
+    ],
+  },
+
   optimization: {
     minimize: false,
     concatenateModules: false,
