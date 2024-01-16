@@ -7,13 +7,45 @@ const CopyPlugin = require('copy-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const threadLoader = require('thread-loader')
 
-const isProd = process.env.NODE_ENV === 'production'
-const filename = isProd
-  ? 'js/[name].[contenthash:8].bundle.js'
-  : 'js/[name].bundle.js'
-const chunkFilename = isProd
-  ? 'js/[name].[contenthash:8].chunk.js'
-  : 'js/[name].chunk.js'
+const plugins = [
+  new HtmlWebpackPlugin({
+    template: resolve(process.cwd(), 'public/index.html'),
+  }),
+  new VueLoaderPlugin(),
+  new DefinePlugin({
+    __VUE_OPTIONS_API__: 'false',
+    __VUE_PROD_DEVTOOLS__: 'false',
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false',
+    'process.env': JSON.stringify(process.env),
+  }),
+  new ProvidePlugin({
+    process: 'process/browser',
+  }),
+  new CaseSensitivePathsPlugin(),
+  new CopyPlugin({
+    patterns: [
+      {
+        from: resolve('public'),
+        toType: 'dir',
+        globOptions: {
+          ignore: ['.DS_Store', '**/index.html'],
+        },
+        noErrorOnMissing: true,
+      },
+    ],
+  }),
+  new ForkTsCheckerWebpackPlugin({
+    typescript: {
+      extensions: {
+        vue: {
+          enabled: true,
+          compiler: '@vue/compiler-sfc',
+        },
+      },
+    },
+  }),
+]
+
 if (process.env.ANALYSE_BUNDLE === 'true') {
   const BundleAnalyzerPlugin =
     require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -129,43 +161,8 @@ module.exports = {
     ],
   },
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: resolve(process.cwd(), 'public/index.html'),
-    }),
-    new VueLoaderPlugin(),
-    new DefinePlugin({
-      __VUE_OPTIONS_API__: 'false',
-      __VUE_PROD_DEVTOOLS__: 'false',
-      'process.env': JSON.stringify(process.env),
-    }),
-    new ProvidePlugin({
-      process: 'process/browser',
-    }),
-    new CaseSensitivePathsPlugin(),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: resolve('public'),
-          toType: 'dir',
-          globOptions: {
-            ignore: ['.DS_Store', '**/index.html'],
-          },
-          noErrorOnMissing: true,
-        },
-      ],
-    }),
-    new ForkTsCheckerWebpackPlugin({
-      typescript: {
-        extensions: {
-          vue: {
-            enabled: true,
-            compiler: '@vue/compiler-sfc',
-          },
-        },
-      },
-    }),
-  ],
+  plugins,
+
   devServer: {
     proxy: {
       '/api': {
