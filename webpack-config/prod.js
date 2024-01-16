@@ -45,6 +45,16 @@ module.exports = merge(base, style, {
     ],
   },
 
+  externals: {
+    vue: 'Vue',
+    'element-plus': 'ElementPlus',
+    'vue-router': 'VueRouter',
+    'vue-demi': 'VueDemi',
+    pinia: 'Pinia',
+    axios: 'axios',
+    'vue-i18n': 'VueI18n',
+  },
+
   plugins: [
     // new CompressionPlugin({
     //   filename: '[path][base].gz',
