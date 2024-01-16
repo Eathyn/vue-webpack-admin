@@ -127,14 +127,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.svg$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'img/[name].[hash:8][ext]',
-        },
-      },
-      {
-        test: /\.(png|jpe?g|gif|webp|avif)$/,
+        test: /\.(png|jpe?g|gif|webp|avif|svg)$/,
         type: 'asset',
         exclude: resolve(process.cwd(), 'src/icon'),
         generator: {
