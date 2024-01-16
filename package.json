@@ -5,6 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "serve": "webpack serve --config ./webpack-config/dev.js",
+    "serve-prod": "webpack serve --config ./webpack-config/prod.js",
     "dev": "webpack --config ./webpack-config/dev.js",
     "build": "webpack --config ./webpack-config/prod.js",
     "prepare": "husky install",
