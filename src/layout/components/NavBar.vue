@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useLoginStore, useLogoutStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
+import Hamburger from '@/layout/components/Hamburger.vue'
 
 const loginStore = useLoginStore()
 const { userInfo } = storeToRefs(loginStore)
@@ -17,7 +18,9 @@ function handleCommand(command: string) {
 
 <template>
   <div class="nav">
-    <div class="item occupy"></div>
+    <div class="item">
+      <Hamburger />
+    </div>
     <div class="item">
       <el-dropdown
         trigger="click"
@@ -28,8 +31,6 @@ function handleCommand(command: string) {
           :src="avatar"
         />
         <template #dropdown>
-          <el-dropdown-item>首页</el-dropdown-item>
-          <el-dropdown-item>课程主页</el-dropdown-item>
           <el-dropdown-item command="logout">退出登录</el-dropdown-item>
         </template>
       </el-dropdown>
@@ -42,16 +43,13 @@ function handleCommand(command: string) {
   height: 50px;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 0 16px;
 }
 
 :deep(.el-avatar) {
   background: #ffffff;
-}
-
-.occupy {
-  flex: 1;
 }
 
 .item:hover {
