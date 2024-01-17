@@ -2,6 +2,7 @@
 import { useLoginStore, useLogoutStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
 import Hamburger from '@/layout/components/Hamburger.vue'
+import Breadcrumb from '@/layout/components/Breadcrumb.vue'
 
 const loginStore = useLoginStore()
 const { userInfo } = storeToRefs(loginStore)
@@ -22,6 +23,7 @@ function handleCommand(command: string) {
       <Hamburger />
     </div>
     <div class="item">
+      <Breadcrumb class="breadcrumb" />
       <el-dropdown
         trigger="click"
         @command="handleCommand"

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { getItem, setItem } from '@/utils/storage'
 import { LANG } from '@/constant'
+import { RouteLocationNormalized } from 'vue-router'
 
 export const useLangStore = defineStore('lang', () => {
   const language = ref(getItem(LANG)) || ref('zh')
@@ -26,5 +27,17 @@ export const useSidebarStore = defineStore('sidebar', () => {
   return {
     isOpenSidebar,
     triggerSidebar,
+  }
+})
+
+export const useRouteStore = defineStore('route', () => {
+  const currentRoute = ref<RouteLocationNormalized>()
+  function setCurrentRoute(route: RouteLocationNormalized) {
+    currentRoute.value = route
+  }
+
+  return {
+    currentRoute,
+    setCurrentRoute,
   }
 })
