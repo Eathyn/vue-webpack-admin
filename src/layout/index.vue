@@ -5,6 +5,7 @@
     </div>
     <div class="main-wrap">
       <NavBar />
+      <RouteTags />
       <AppMain />
     </div>
   </div>
@@ -14,6 +15,7 @@
 import AppMain from '@/layout/components/AppMain.vue'
 import NavBar from '@/layout/components/NavBar.vue'
 import Sidebar from '@/layout/components/Sidebar.vue'
+import RouteTags from '@/layout/components/RouteTags.vue'
 </script>
 
 <style scoped lang="scss">
