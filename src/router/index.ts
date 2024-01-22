@@ -1,9 +1,4 @@
-import {
-  createRouter,
-  createWebHashHistory,
-  RouteLocationNormalized,
-  RouteRecordRaw,
-} from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { useLoginStore } from '@/store/user'
 import { storeToRefs } from 'pinia'
 import { getItem } from '@/utils/storage'
@@ -13,7 +8,6 @@ import roleListRoutes from '@/router/modules/roleList'
 import permissionListRoutes from '@/router/modules/permissionList'
 import articleRoutes from '@/router/modules/article'
 import Layout from '@/layout/index.vue'
-import { useRouteStore } from '@/store/app'
 
 const publicRoutes: Array<RouteRecordRaw> = [
   {
@@ -87,12 +81,6 @@ const router = createRouter({
 
 const whiteList = ['/login']
 
-function updateCurrentRoute(route: RouteLocationNormalized) {
-  const routeStore = useRouteStore()
-  const { setCurrentRoute } = routeStore
-  setCurrentRoute(route)
-}
-
 router.beforeEach(async (to, from, next) => {
   const loginStore = useLoginStore()
   const { isUserInfoEmpty, token } = storeToRefs(loginStore)
@@ -110,7 +98,6 @@ router.beforeEach(async (to, from, next) => {
         await setUserInfo()
       }
       next()
-      updateCurrentRoute(to)
     }
   } else {
     if (whiteList.includes(to.path)) {

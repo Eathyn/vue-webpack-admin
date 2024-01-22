@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useRouteStore } from '@/store/app'
-import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { generateTitle } from '@/utils/i18n'
 
 interface BreadCrumb {
@@ -9,24 +8,23 @@ interface BreadCrumb {
   title: string
 }
 
-const routeStore = useRouteStore()
-const { currentRoute } = storeToRefs(routeStore)
+const route = useRoute()
 const breadCrumbData = ref<Array<BreadCrumb>>([])
 
 function generateBreadCrumbData() {
-  const matchedRoutes = currentRoute.value!.matched
+  const matchedRoutes = route.matched
   breadCrumbData.value = []
-  for (const route of matchedRoutes) {
+  matchedRoutes.forEach((route) => {
     if (route.path !== '/') {
       breadCrumbData.value.push({
         path: route.path,
         title: route.meta.title as string,
       })
     }
-  }
+  })
 }
 
-watch(currentRoute, generateBreadCrumbData, { immediate: true })
+watch(route, generateBreadCrumbData, { immediate: true })
 </script>
 
 <template>
