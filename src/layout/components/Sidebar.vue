@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { filterRoutes, generateMenus } from '@/utils/route'
 import { useSidebarStore } from '@/store/app'
 import { storeToRefs } from 'pinia'
 import SidebarItem from '@/layout/components/SidebarItem.vue'
 
 const router = useRouter()
-const menuRoutes = computed(() => {
-  const routes = filterRoutes(router.getRoutes())
-  return generateMenus(routes)
-})
-
+const route = useRoute()
 const sidebarStore = useSidebarStore()
 const { isOpenSidebar } = storeToRefs(sidebarStore)
+const menuRoutes = computed(() =>
+  generateMenus(filterRoutes(router.getRoutes())),
+)
+const activeMenuItem = computed(() => route.path)
 </script>
 
 <template>
@@ -37,7 +37,7 @@ const { isOpenSidebar } = storeToRefs(sidebarStore)
         background-color="#304156"
         text-color="#bfcbd9"
         active-text-color="#ffffff"
-        default-active="/profile"
+        :default-active="activeMenuItem"
         unique-opened
         class="el-menu"
         :collapse="!isOpenSidebar"
@@ -64,6 +64,7 @@ const { isOpenSidebar } = storeToRefs(sidebarStore)
   justify-content: center;
   align-items: center;
   padding-top: 10px;
+  margin-bottom: 20px;
 
   :deep(.el-avatar) {
     --el-avatar-bg-color: none;

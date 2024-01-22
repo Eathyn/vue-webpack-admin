@@ -19,13 +19,9 @@ function handleCommand(command: string) {
 
 <template>
   <div class="nav">
-    <div class="item">
-      <Hamburger />
-    </div>
-    <div class="item">
-      <Breadcrumb class="breadcrumb" />
-      <Hamburger class="item" />
-      <Hamburger class="item" />
+    <Hamburger class="item" />
+    <Breadcrumb class="breadcrumb" />
+    <div class="item avatar">
       <el-dropdown
         trigger="click"
         @command="handleCommand"
@@ -49,7 +45,7 @@ function handleCommand(command: string) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
+  padding-right: 16px;
 }
 
 :deep(.el-avatar) {

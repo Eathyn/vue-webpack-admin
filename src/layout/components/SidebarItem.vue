@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import MenuItem from '@/layout/components/MenuItem.vue'
+import { RouteRecordNormalized } from 'vue-router'
 
-defineProps({
-  route: {
-    type: Object,
-    required: true,
-  },
-})
+interface Props {
+  route: RouteRecordNormalized
+}
+
+defineProps<Props>()
 </script>
 
 <template>
