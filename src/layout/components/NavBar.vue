@@ -24,6 +24,8 @@ function handleCommand(command: string) {
     </div>
     <div class="item">
       <Breadcrumb class="breadcrumb" />
+      <Hamburger class="item" />
+      <Hamburger class="item" />
       <el-dropdown
         trigger="click"
         @command="handleCommand"
@@ -54,7 +56,20 @@ function handleCommand(command: string) {
   background: #ffffff;
 }
 
+.item {
+  transition: background 0.4s;
+}
+
 .item:hover {
   cursor: pointer;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.avatar:hover {
+  background: none;
+}
+
+.breadcrumb {
+  flex: 1;
 }
 </style>

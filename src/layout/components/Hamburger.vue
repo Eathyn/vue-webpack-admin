@@ -16,16 +16,20 @@ function handleClickHamburger() {
 </script>
 
 <template>
-  <SvgIcon
-    :icon-class="iconClass"
-    class="icon"
+  <div
+    class="hamburger"
     @click="handleClickHamburger"
-  />
+  >
+    <SvgIcon :icon-class="iconClass" />
+  </div>
 </template>
 
 <style scoped lang="scss">
-.icon {
-  width: 1.3em;
-  height: 1.3em;
+.hamburger {
+  height: 100%;
+  padding: 0 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
